@@ -15,6 +15,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Redmine LDAP Sync.  If not, see <http://www.gnu.org/licenses/>.
+
+# Make Rails happy
+module LdapSync::CoreExt::FileStore; end
+
 class ActiveSupport::Cache::FileStore
   def delete_unless
     options = merged_options(options)

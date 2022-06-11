@@ -15,10 +15,10 @@ Redmine::Plugin.register :redmine_ldap_sync do
 end
 
 #RedmineApp::Application.config.after_initialize do
-Rails.application.config.to_prepare do
-  require_dependency 'ldap_sync/core_ext'
-  require_dependency 'ldap_sync/infectors'
+Rails.application.config.after_initialize do
+  require_relative 'lib/ldap_sync/core_ext'
+  require_relative 'lib/ldap_sync/infectors'
 end
 
 # hooks
-require_dependency 'ldap_sync/hooks'
+require_relative 'lib/ldap_sync/hooks'

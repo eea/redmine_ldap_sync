@@ -15,6 +15,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Redmine LDAP Sync.  If not, see <http://www.gnu.org/licenses/>.
+
+# Make Rails happy
+module LdapSync::CoreExt::Ber; end
+
 if ('0.12.0'..'0.13.0') === Gem.loaded_specs['net-ldap'].version.to_s
   require 'net/ber'
 
