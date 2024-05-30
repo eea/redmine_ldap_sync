@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Redmine LDAP Sync.  If not, see <http://www.gnu.org/licenses/>.
 module LdapSync::Infectors::User
-  ::User::STANDARD_FIELDS = %w( firstname lastname mail )
+  #::User::STANDARD_FIELDS = %w( firstname lastname mail )
 
   module InstanceMethods
     def add_to_fixed_group

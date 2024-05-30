@@ -1,4 +1,10 @@
-Redmine LDAP Sync [![Build Status](https://travis-ci.org/thorin/redmine_ldap_sync.svg?branch=master)](https://travis-ci.org/thorin/redmine_ldap_sync) [![Coverage Status](https://coveralls.io/repos/thorin/redmine_ldap_sync/badge.svg?branch=master)](https://coveralls.io/r/thorin/redmine_ldap_sync?branch=master) [![Maintainability](https://api.codeclimate.com/v1/badges/9b36898853d5141eb70e/maintainability.svg)](https://codeclimate.com/github/thorin/redmine_ldap_sync/maintainability)
+Redmine LDAP Sync
+--- forked from https://github.com/thorin/redmine_ldap_sync, which is unmaintained. 
+This maintained version is tested working fine with Redmine4.x/Ruby2.6.x/Rails5.2.x
+Issues and PRs are welcome.
+Redmine site: http://www.redmine.org/plugins/redmine_ldap_sync
+
+Original readme:
 =================
 
 This redmine plugin extends the ldap authentication with user/group
@@ -33,7 +39,7 @@ Installation & Upgrade
    If you are downloading the plugin directly from GitHub, you can do so by
    changing into the `#{RAILS_ROOT}/plugins` directory and issuing the command:
    ```
-   git clone git://github.com/thorin/redmine_ldap_sync.git
+   git clone git://github.com/tainewoo/redmine_ldap_sync.git
    ```
 
    **upgrade** - Backup and replace the old plugin directory with the new

@@ -91,7 +91,10 @@ module LdapSync::EntityManager
         unless setting.has_account_flags?
           changes[:enabled] += find_all_users(ldap, n(:login)).map(&:first)
         else
-          find_all_users(ldap, ns(:login, :account_flags)) do |entry|
+#          find_all_users(ldap, ns(:login, :account_flags)) do |entry|
+          all_users = find_all_users(ldap, ns(:login, :account_flags))  
+          all_users.each_with_index do |entry| 
+
             if account_locked?(entry[n(:account_flags)].first)
               changes[:locked] << entry[n(:login)].first
             else
@@ -229,13 +232,28 @@ module LdapSync::EntityManager
           group = find_group(ldap, groupname, ns(:groupname, :group_memberid)) if group.is_a? String
 
           member_filter = Net::LDAP::Filter.eq( setting.member_group, group[n(:group_memberid)].first )
-          cacheable_ber find_all_groups(ldap, member_filter, ns(:groupname, :group_memberid)).map
+#          cacheable_ber find_all_groups(ldap, member_filter, ns(:groupname, :group_memberid)).map
+          trace "Group closure on parents" 
+          all_groups = find_all_groups(ldap, member_filter, ns(:groupname, :group_memberid)) 
+          if all_groups.nil? 
+             trace "Empty group" 
+             Array.new 
+          else 
+             group_map = all_groups.map 
+             trace "Something inside #{all_groups}" 
+             all_groups 
+          end 
         end
       end
 
       closure << groupname
-      parent_groups.each_with_object(closure) do |group, closure|
-        closure += get_group_closure(ldap, group, closure) unless closure.include? group[n(:groupname)].first
+#      parent_groups.each_with_object(closure) do |group, closure|
+#        closure += get_group_closure(ldap, group, closure) unless closure.include? group[n(:groupname)].first
+      if !parent_groups.nil? 
+      parent_groups.each_with_object(closure) do |group, closure| 
+         closure += get_group_closure(ldap, group, closure) unless closure.include? group[n(:groupname)].first 
+      end 
+
       end
     end
 
@@ -307,6 +325,12 @@ module LdapSync::EntityManager
 
     def ldap_search(ldap, options, &block)
       attrs = options[:attributes]
+
+      if attrs.is_a?(Array) 
+         arr = ldap.search(options)  
+      return arr 
+      end 
+
 
       return ldap.search(options, &block) if attrs.is_a?(Array) || attrs.nil?
 

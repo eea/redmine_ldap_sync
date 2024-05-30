@@ -23,11 +23,21 @@ $(function() {
     var selected = $(elem).val();
     var prefix = '#ldap_attributes div.' + ambit;
 
+    $(prefix).hide();
+
+    // Remove required for hidden elements
+    $(prefix + ' input').removeAttr('required');
+
     if (selected !== '') {
       $(prefix + '.' + selected).show();
-      $(prefix + ':not(.' + selected + ')').hide();
-    } else {
-      $(prefix).hide();
+      
+      // Add required for visible and required inputs
+      $(prefix + '.' + selected + ' input').each(function(){
+
+        if($('label[for="' + this.id + '"]').hasClass('required'))
+          $(this).attr('required', 'required');
+
+      });
     }
   }
 
